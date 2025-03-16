@@ -268,7 +268,7 @@ public:
     // @param index1 Start index, must be >= first_log_index
     // @param index2 End index, must be <= last_log_index and >= index1
     // @return Total size in bytes if successful, negative value on error
-    int get_log_size_diff_by_index(int64_t index1, int64_t index2);
+    uint64_t get_log_size_diff_by_index(int64_t index1, int64_t index2);
 
 private:
 friend class butil::RefCountedThreadSafe<NodeImpl>;
