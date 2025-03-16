@@ -20,9 +20,11 @@
 #include <brpc/errno.pb.h>
 #include <brpc/controller.h>
 #include <brpc/channel.h>
+#include <mutex>
 
 #include "braft/errno.pb.h"
 #include "braft/configuration.h"
+#include "braft/macros.h"
 #include "braft/util.h"
 #include "braft/raft.h"
 #include "braft/node.h"
@@ -2262,6 +2264,7 @@ uint64_t NodeImpl::get_log_size_diff_by_index(int64_t index1, int64_t index2) {
         std::swap(index1, index2);
     }
 
+    std::unique_lock<raft_mutex_t> lck_(_mutex);
     const int64_t first_log_index = _log_manager->first_log_index();
     const int64_t last_log_index = _log_manager->last_log_index();
 
